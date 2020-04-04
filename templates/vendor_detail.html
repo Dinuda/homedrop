@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        User Details
+    </title>
+</head>
+
+<body>
+    {% if vendor %}
+    <form method="POST" action="/placed">
+        <br>
+        <a "/name/{{vendor[0][1] }}">{{ vendor[1] }}</a>
+        <br>
+        <a "/name/{{vendor[0][2] }}">{{ vendor[2] }}</a>
+        <br>
+        <a "/name/{{vendor[0][3] }}">{{ vendor[3] }}</a>
+        <br>
+        <a "/name/{{vendor[0][4] }}">{{ vendor[4] }}</a>
+        <br>
+    </form>
+    <h1>
+        Place your order
+    </h1>
+    <form method="POST" action="/submit_message">
+        <!-- select drop down list -->
+
+        <label for="phone">Choose a phone number:</label>
+        <select id="phone" name="phone">
+            {% if phones %}
+            {% for row in phones %}
+            <option value="{{ row[2] }}">{{ row[2] }}</option>
+            {% endfor %}
+            {% endif %}
+        </select>
+        <br>
+        <br>
+        <textarea name="message" rows="10" cols="30"></textarea>
+        <br><br>
+        <input type="hidden" id="vendor" name="vendor" value="{{ vendor[0] }}">
+        <input type="submit">
+    </form>
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Homemart
+    </title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function insertParam(key, value) {
+            key = encodeURIComponent(key); value = encodeURIComponent(value);
+
+            var s = document.location.search;
+            var kvp = key + "=" + value;
+
+            var r = new RegExp("(&|\\?)" + key + "=[^\&]*");
+
+            s = s.replace(r, "$1" + kvp);
+
+            if (!RegExp.$1) { s += (s.length > 0 ? '&' : '?') + kvp; };
+
+            //again, do what you will here
+            document.location.search = s;
+        }
+
+    </script>
+    {% if categories %}
+    {% for row in categories %}
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td><a onclick="insertParam('category', '{{row[0] }}')" href="#">{{ row[1] }}</a></td>
+        </tr>
+    </table>
+    {% endfor %}
+    {% endif %}
+    <br>
+    <br>
+    {% if locations %}
+    {% for row in locations%}
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td><a onclick="insertParam('location', '{{row[0] }}')" href="#">{{ row[1] }}</a></td>
+        </tr>
+    </table>
+    {% endfor %}
+    {% endif %}
+    <br>
+    <br>
+    {% if vendors %}
+    {% for row in vendors%}
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td><a href="vendor/{{row[0] }}">{{ row[1] }}</a></td>
+        </tr>
+    </table>
+    {% endfor %}
+    {% endif %}
+    <a href="/edit_company">Create Company</a>
+
+</body>
+
+</html>

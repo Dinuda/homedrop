@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    {% if vendors %}
+    {% for row in vendors %}
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td><a href="/vendor/{{row[0] }}"> {{ row[1] }}</a></td>
+        </tr>
+    </table>
+    {% endfor %}
+    {% endif %}
+
+</body>
+
+</html>
