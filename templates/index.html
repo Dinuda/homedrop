@@ -1,88 +1,105 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-    <title>
-        Homemart
-    </title>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
+{% block scripts %}
+<script>
+    function insertParam(key, value) {
+        key = encodeURIComponent(key); value = encodeURIComponent(value);
 
-        td,
-        th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
+        var s = document.location.search;
+        var kvp = key + "=" + value;
 
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
-</head>
+        var r = new RegExp("(&|\\?)" + key + "=[^\&]*");
 
-<body>
-    <script>
-        function insertParam(key, value) {
-            key = encodeURIComponent(key); value = encodeURIComponent(value);
+        s = s.replace(r, "$1" + kvp);
 
-            var s = document.location.search;
-            var kvp = key + "=" + value;
+        if (!RegExp.$1) { s += (s.length > 0 ? '&' : '?') + kvp; };
 
-            var r = new RegExp("(&|\\?)" + key + "=[^\&]*");
+        //again, do what you will here
+        document.location.search = s;
+    }
+</script>
+{% endblock %}
 
-            s = s.replace(r, "$1" + kvp);
 
-            if (!RegExp.$1) { s += (s.length > 0 ? '&' : '?') + kvp; };
+{% block filters %}
 
-            //again, do what you will here
-            document.location.search = s;
-        }
+<header class="header-area clearfix">
+    <!-- Close Icon -->
+    <div class="nav-close">
+        <i class="fa fa-close" aria-hidden="true"></i>
+    </div>
+    <!-- Logo -->
+    <div class="logo">
+        <a href="index.html"><img src="images/core-img/logo.png" alt=""></a>
+    </div>
+    <!-- Button Group -->
+    <div class="amado-btn-group mt-30 mb-100">
+        <a href="#" class="btn amado-btn active">Categories</a>
+    </div>
+    <!-- Amado Nav -->
+    <nav class="amado-nav">
+        <ul>
+            {% if categories %}
+            {% for row in categories %}
+            <li class="active"><a onclick="insertParam('category', '{{row[0] }}')" href="#">{{ row[1] }}</a></li>
+            </table>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </nav>
+    <!-- Button Group -->
+    <div class="amado-btn-group mt-30 mb-100">
+        <a href="#" class="btn amado-btn active">Locations</a>
+    </div>
+    <!-- Amado Nav -->
+    <nav class="amado-nav">
+        <ul>
+            {% if locations %}
+            {% for row in locations %}
+            <li class="active"><a onclick="insertParam('location', '{{row[0] }}')" href="#">{{ row[1] }}</a></li>
+            </table>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </nav>
+    <!-- Cart Menu -->
+    <div class="cart-fav-search mb-100">
+        <a href="cart.html" class="cart-nav"><img src="images/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
+        <a href="#" class="fav-nav"><img src="images/core-img/favorites.png" alt=""> Favourite</a>
+        <a href="#" class="search-nav"><img src="images/core-img/search.png" alt=""> Search</a>
+    </div>
+    <!-- Social Button -->
+    <div class="social-info d-flex justify-content-between">
+        <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    </div>
+</header>
+{% endblock %}
 
-    </script>
-    {% if categories %}
-    {% for row in categories %}
-    <table>
-        <tr>
-        </tr>
-        <tr>
-            <td><a onclick="insertParam('category', '{{row[0] }}')" href="#">{{ row[1] }}</a></td>
-        </tr>
-    </table>
-    {% endfor %}
-    {% endif %}
-    <br>
-    <br>
-    {% if locations %}
-    {% for row in locations%}
-    <table>
-        <tr>
-        </tr>
-        <tr>
-            <td><a onclick="insertParam('location', '{{row[0] }}')" href="#">{{ row[1] }}</a></td>
-        </tr>
-    </table>
-    {% endfor %}
-    {% endif %}
-    <br>
-    <br>
-    {% if vendors %}
-    {% for row in vendors%}
-    <table>
-        <tr>
-        </tr>
-        <tr>
-            <td><a href="vendor/{{row[0] }}">{{ row[1] }}</a></td>
-        </tr>
-    </table>
-    {% endfor %}
-    {% endif %}
-    <a href="/edit_company">Create Company</a>
 
-</body>
+{% block content %}
 
-</html>
+<div class="products-catagories-area clearfix">
+    <div class="amado-pro-catagory clearfix">
+
+        {% if vendors %}
+        {% for row in vendors%}
+        <!-- Single Catagory -->
+        <div class="single-products-catagory clearfix">
+            <a href="vendor/{{row[0] }}">
+                <img src="images/bg-img/1.jpg" alt="">
+                <!-- Hover Content -->
+                <div class="hover-content">
+                    <div class="line"></div>
+                    <p>From $180</p>
+                    <h4>{{ row[1] }}</h4>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% endif %}
+</div>
+</div>
+{% endblock %}
