@@ -1,7 +1,10 @@
 from flask import redirect, render_template
 import requests
 
-def editCompany(mysql, id, vendor, contacts, images):
+def editCompany(mysql, id):
+    vendor = None
+    contacts = None
+    images = None
     if id:
         print('edit:' + str(id))
         cur = mysql.connection.cursor()

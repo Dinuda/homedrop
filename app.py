@@ -49,10 +49,7 @@ def user_reg():
 @app.route('/edit_company')
 def create_company():
     id = request.args.get("id")
-    vendor = None
-    contacts = None
-    images = None
-    return company.editCompany(mysql,id, vendor, contacts, images)
+    return company.editCompany(mysql, id)
 
 
 
