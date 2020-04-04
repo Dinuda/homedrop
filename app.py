@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_mysqldb import MySQL
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import os
 from flask import g
@@ -8,61 +7,28 @@ from flask import Response
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
-
+import database
+import index
+import vendor
+import company
 
 app = Flask(__name__,  static_url_path='',
             static_folder='static', template_folder='templates')
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'mysqlroot'
-app.config['MYSQL_DB'] = 'home_delivery'
-
-mysql = MySQL(app)
+mysql = database.getDatabase(app)
 
 # ?category=1&location=2
 @app.route('/')
-def index():
+def homePage():
     locationId = request.args.get("location")
     categoryId = request.args.get("category")
-
-    cur = mysql.connection.cursor()
-    sql = '''SELECT vendors.*  from vendors 
-        left join vendor_locations on (vendors.id= vendor_locations.vendor) 
-        where 1=1 '''
-
-    if (locationId is not None):
-        sql = sql + " and vendor_locations.location=" + locationId
-
-    if (categoryId is not None):
-        sql = sql + " and vendors.category=" + categoryId
-    
-    cur.execute(sql)
-    vendors = cur.fetchall()
-
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM home_delivery.locations;")
-    locations = cur.fetchall()
-
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM home_delivery.categories;")
-    categories = cur.fetchall()
-
-    return render_template('index.html', locations=locations, categories=categories, vendors=vendors)
+    return index.homepage(mysql, locationId, categoryId)
 
 
 @app.route('/vendor/<vendorid>')
-def vendor(vendorid):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM home_delivery.vendors where id =" + vendorid + ";")
-    vendor = cur.fetchall()
-
-    #get phone numbers
-    cur.execute("SELECT * FROM home_delivery.contacts where vendor=" + vendorid + ";")
-    phones = cur.fetchall()
-    print(phones)
-
-    return render_template('vendor.html', vendor=vendor[0], phones=phones)
+def vendorDetail(vendorid):
+    vendorId = request.args.get("vendorid")
+    return vendor.vendorDetail(mysql ,vendorid)
 
 @app.route('/newuser', methods=['GET', 'POST'])
 def newuser():
@@ -86,36 +52,8 @@ def create_company():
     vendor = None
     contacts = None
     images = None
+    return company.editCompany(mysql,id, vendor, contacts, images)
 
-    if id:
-        print('edit:' + str(id))
-        cur = mysql.connection.cursor()
-        #get vendor
-        cur.execute("select * from vendors where id=%s", [id])
-        vendor_result = cur.fetchall()
-        vendor = vendor_result[0]
-        #get contacts
-        cur.execute("SELECT * FROM contacts where vendor=%s" , [id])
-        contacts = cur.fetchall()
-        print(contacts)
-        #get images
-        cur.execute("SELECT * FROM images where vendor=%s " , [id])
-        images = cur.fetchall()
-        print(images)
-        cur.close()
-
-
-        
-    else:
-        print('create a new company')
-    
-
-
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM categories;")
-    categories = cur.fetchall()
-    cur.close()
-    return render_template('edit_company.html',categories=categories, vendor=vendor ,contacts=contacts ,images=images)
 
 
 @app.route('/submit_edit_company' , methods=['POST'])
@@ -148,18 +86,9 @@ def new_comp():
 def submit_message():
     message = request.form['message']
     phone = request.form['phone']
-    vendor = request.form['vendor']
-    url = 'http://www.textit.biz/sendmsg?id=94767819556&pw=6476&to=' + phone + '&text=' + message 
-    print(url)
-    response = requests.get(url)
-    print(response)
-    print(phone)
-    return redirect('/vendor/' + vendor)
+    vendorid = request.form['vendor']
+    return vendor.vendorSendMessage(message, phone, vendorid)
 
-@app.route('/sendmessage' , methods= ['POST'])
-def sendmessage():
-    phone = request.form['phone']
-    return render_template('message.html' , phone=phone)
 
 @app.route('/submit_flyer_edit_company', methods= ['POST'])
 def submit_flyer_edit_company():
