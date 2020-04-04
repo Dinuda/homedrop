@@ -3,7 +3,6 @@ from flask_mysqldb import MySQL
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import os
 from flask import g
-from bs4 import BeautifulSoup
 import requests
 from flask import Response
 from werkzeug.utils import secure_filename
@@ -16,7 +15,7 @@ app = Flask(__name__,  static_url_path='',
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'M@hpshinyblack'
+app.config['MYSQL_PASSWORD'] = 'mysqlroot'
 app.config['MYSQL_DB'] = 'home_delivery'
 
 mysql = MySQL(app)
@@ -63,7 +62,7 @@ def vendor(vendorid):
     phones = cur.fetchall()
     print(phones)
 
-    return render_template('vendor_detail.html ', vendor=vendor[0], phones=phones)
+    return render_template('vendor.html', vendor=vendor[0], phones=phones)
 
 @app.route('/newuser', methods=['GET', 'POST'])
 def newuser():
@@ -86,6 +85,7 @@ def create_company():
     id = request.args.get("id")
     vendor = None
     contacts = None
+    images = None
 
     if id:
         print('edit:' + str(id))
