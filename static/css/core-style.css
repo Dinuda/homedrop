@@ -454,7 +454,7 @@ img {
       text-transform: uppercase;
       position: relative;
       z-index: 1;
-      padding: 20px 0;
+      padding: 10px 0;
       display: block;
       line-height: 0.9;
       color: #131212;
@@ -1396,5 +1396,3 @@ img {
     background-color: #f5f7fa; }
 
 /* ##### The End ##### */
-
-/*# sourceMappingURL=core-style.css.map */

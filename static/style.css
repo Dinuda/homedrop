@@ -11,3 +11,7 @@
     /* ---------------------------------------
     ##### - PLACE YOUR CUSTOM CSS HERE - #####
     --------------------------------------- */
+
+    .main-content-wrapper .header-area .amado-nav li a {
+        padding: 10px 0;
+    }

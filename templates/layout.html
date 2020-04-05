@@ -17,7 +17,6 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -55,9 +54,6 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <!-- Scripts Area Start -->
-        {% block scripts %}{% endblock %}
-        <!-- Scripts Area End -->
 
         <!-- Filter Area Start -->
         {% block filters %}{% endblock %}
@@ -159,6 +155,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Active js -->
     <script src="js/active.js"></script>
 
+    <!-- Scripts Area Start -->
+    {% block scripts %}{% endblock %}
+    <!-- Scripts Area End -->
 </body>
 
 </html>

@@ -7,10 +7,10 @@ def homepage(mysql, locationId, categoryId):
         left join vendor_locations on (vendors.id= vendor_locations.vendor) 
         where 1=1 '''
 
-    if (locationId is not None):
+    if locationId:
         sql = sql + " and vendor_locations.location=" + locationId
 
-    if (categoryId is not None):
+    if categoryId:
         sql = sql + " and vendors.category=" + categoryId
     
     cur.execute(sql)
