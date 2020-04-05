@@ -15,3 +15,11 @@
     .main-content-wrapper .header-area .amado-nav li a {
         padding: 10px 0;
     }
+
+    .auto-cursor {
+        cursor: auto!important;
+    }
+
+    .footer-logo {
+        width: 50%;
+    }
