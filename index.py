@@ -16,12 +16,4 @@ def homepage(mysql, locationId, categoryId):
     cur.execute(sql)
     vendors = cur.fetchall()
 
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM home_delivery.locations;")
-    locations = cur.fetchall()
-
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM home_delivery.categories;")
-    categories = cur.fetchall()
-
-    return render_template('index.html', locations=locations, categories=categories, vendors=vendors)
+    return render_template('index.html', vendors=vendors)

@@ -16,6 +16,19 @@ app = Flask(__name__,  static_url_path='',
 
 mysql = database.getDatabase(app)
 
+@app.context_processor
+def inject_filter_menu():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM home_delivery.locations;")
+    locations = cur.fetchall()
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM home_delivery.categories;")
+    categories = cur.fetchall()
+
+    return dict(locations=locations, categories=categories)
+
+
 # ?category=1&location=2
 @app.route('/')
 def homePage():

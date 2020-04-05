@@ -55,9 +55,68 @@
             </div>
         </div>
 
-        <!-- Filter Area Start -->
-        {% block filters %}{% endblock %}
-        <!-- Filter Area End -->
+        <header class="header-area clearfix">
+            <!-- Close Icon -->
+            <div class="nav-close">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </div>
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/"><img src="images/core-img/logo-only.png" alt=""></a>
+                <p>A comprehensive list of home delivery services</p>
+            </div>
+
+            <!-- Button Group -->
+            <div class="amado-btn-group mt-30 mb-15">
+                <div class="auto-cursor btn amado-btn active">Categories</div>
+            </div>
+            <!-- Amado Nav -->
+            <nav class="amado-nav">
+                <ul>
+                    <li id="category-" name="menu-item"><a onclick="insertParam('category', '')" href="#">All
+                            Categories</a>
+                    </li>
+                    {% if categories %}
+                    {% for row in categories %}
+                    <li id="category-{{row[0] }}" name="menu-item"><a onclick="insertParam('category', '{{row[0] }}')"
+                            href="#">{{ row[1] }}</a></li>
+                    </table>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </nav>
+            <!-- Button Group -->
+            <div class="amado-btn-group mt-50 mb-15">
+                <div class="auto-cursor btn amado-btn active">Locations</div>
+            </div>
+            <!-- Amado Nav -->
+            <nav class="amado-nav">
+                <ul>
+                    <li id="location-" name="menu-item"><a onclick="insertParam('location', '')" href="#">All
+                            Locations</a></li>
+                    {% if locations %}
+                    {% for row in locations %}
+                    <li id="location-{{row[0] }}" name="menu-item"><a onclick="insertParam('location', '{{row[0] }}')"
+                            href="#">{{ row[1] }}</a></li>
+                    </table>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </nav>
+            <!-- Social Button -->
+            <div class="social-info d-flex mb-100 mt-100">
+                <a href="#"><i class="fa fa-facebook mr-15" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter mr-15" aria-hidden="true"></i></a>
+            </div>
+            <!-- Cart Menu -->
+            <div class="cart-fav-search mb-30 mt-100">
+                <a href="cart.html" class="cart-nav"><img src="images/core-img/cart.png" alt=""> Cart
+                    <span>(0)</span></a>
+                <a href="#" class="fav-nav"><img src="images/core-img/favorites.png" alt=""> Favourite</a>
+                <a href="#" class="search-nav"><img src="images/core-img/search.png" alt=""> Search</a>
+            </div>
+
+        </header>
 
         <!-- Content Area Start -->
         {% block content %}{% endblock %}
@@ -79,9 +138,14 @@
                             <a href="index.html"><img src="images/core-img/logo-only.png" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
-                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        <p class="copywrite">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                            template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
                     </div>
                 </div>
                 <!-- Single Widget Area -->
@@ -90,7 +154,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                         <!-- Footer Menu -->
                         <div class="footer_menu">
                             <nav class="navbar navbar-expand-lg justify-content-end">
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#footerNavContent" aria-controls="footerNavContent"
+                                    aria-expanded="false" aria-label="Toggle navigation"><i
+                                        class="fa fa-bars"></i></button>
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
