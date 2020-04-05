@@ -11,7 +11,7 @@ def homepage(mysql, locationId, categoryId):
         sql = sql + " left join vendor_locations on (vendors.id = vendor_locations.vendor and vendor_locations.location = " + locationId + ")"
 
     if categoryId:
-        sql = sql + " where categories.id = " + categoryId + ")"
+        sql = sql + " where categories.id = " + categoryId + ""
     
     cur.execute(sql)
     vendors = cur.fetchall()
