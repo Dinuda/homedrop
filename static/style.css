@@ -23,3 +23,20 @@
     .footer-logo {
         width: 50%;
     }
+
+    .single-products-catagory .hover-content {
+        width: 100%;
+        padding-left: 40px;
+        padding: 20px;
+        background-color: white;
+        left: 0px;
+    }
+
+    .single-products-catagory:hover .hover-content p,
+    .single-products-catagory:hover .hover-content h4, .single-products-catagory:focus .hover-content p,
+    .single-products-catagory:focus .hover-content h4 {
+      color: #131212; }
+
+    .single-products-catagory {
+        padding: 5px;
+    }
