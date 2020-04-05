@@ -37,9 +37,9 @@ def homePage():
     return index.homepage(mysql, locationId, categoryId)
 
 
-@app.route('/vendor/<vendorid>')
-def vendorDetail(vendorid):
-    vendorId = request.args.get("vendorid")
+@app.route('/vendor')
+def vendorDetail():
+    vendorid = request.args.get("id")
     return vendor.vendorDetail(mysql ,vendorid)
 
 @app.route('/newuser', methods=['GET', 'POST'])

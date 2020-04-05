@@ -9,7 +9,7 @@
         {% for row in vendors%}
         <!-- Single Catagory -->
         <div class="single-products-catagory clearfix">
-            <a href="vendor/{{ row[0] }}">
+            <a href="vendor?id={{ row[0] }}">
                 {% if (row[4]) %}
                 <img src="/img/{{ row[4] }}" alt="">
                 {% else %}
