@@ -1,35 +1,5 @@
 {% extends "layout.html" %}
 
-{% block scripts %}
-<script>
-    function insertParam(key, value) {
-        key = encodeURIComponent(key); value = encodeURIComponent(value);
-        var s = document.location.search;
-        var kvp = key + "=" + value;
-        var r = new RegExp("(&|\\?)" + key + "=[^\&]*");
-        s = s.replace(r, "$1" + kvp);
-        if (!RegExp.$1) { s += (s.length > 0 ? '&' : '?') + kvp; };
-        //again, do what you will here
-        document.location.search = s;
-    }
-
-    (function () {
-        // your page initialization code here. the DOM will be available here
-        const urlParams = new URLSearchParams(window.location.search);
-        const category = urlParams.get('category')
-        const location = urlParams.get('location')
-
-        document.getElementsByName("menu-item").forEach(function (menu) {
-            menu.classList.remove("active");
-        });
-
-        document.getElementById("category-" + category).className += "active";
-        document.getElementById("location-" + location).className += "active";
-    })();
-</script>
-{% endblock %}
-
-
 {% block content %}
 
 <div class="products-catagories-area clearfix">

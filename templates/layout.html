@@ -9,10 +9,10 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Amado - Furniture Ecommerce Template | Home</title>
+    <title>Home Drop</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="images/core-img/favicon.ico">
+    <link rel="icon" href="images/core-img/favicon.png">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
@@ -108,14 +108,6 @@
                 <a href="#"><i class="fa fa-facebook mr-15" aria-hidden="true"></i></a>
                 <a href="#"><i class="fa fa-twitter mr-15" aria-hidden="true"></i></a>
             </div>
-            <!-- Cart Menu -->
-            <div class="cart-fav-search mb-30 mt-100">
-                <a href="cart.html" class="cart-nav"><img src="images/core-img/cart.png" alt=""> Cart
-                    <span>(0)</span></a>
-                <a href="#" class="fav-nav"><img src="images/core-img/favorites.png" alt=""> Favourite</a>
-                <a href="#" class="search-nav"><img src="images/core-img/search.png" alt=""> Search</a>
-            </div>
-
         </header>
 
         <!-- Content Area Start -->
@@ -194,6 +186,32 @@
     <!-- Scripts Area Start -->
     {% block scripts %}{% endblock %}
     <!-- Scripts Area End -->
+    <script>
+        function insertParam(key, value) {
+            key = encodeURIComponent(key); value = encodeURIComponent(value);
+            var s = document.location.search;
+            var kvp = key + "=" + value;
+            var r = new RegExp("(&|\\?)" + key + "=[^\&]*");
+            s = s.replace(r, "$1" + kvp);
+            if (!RegExp.$1) { s += (s.length > 0 ? '&' : '?') + kvp; };
+            //again, do what you will here
+            document.location.search = s;
+        }
+    
+        (function () {
+            // your page initialization code here. the DOM will be available here
+            const urlParams = new URLSearchParams(window.location.search);
+            var category = urlParams.get('category')
+            var location = urlParams.get('location')
+    
+            document.getElementsByName("menu-item").forEach(function (menu) {
+                menu.classList.remove("active");
+            });
+            category = category? category: '';
+            document.getElementById("category-" + category).className += "active";
+            document.getElementById("location-" + location).className += "active";
+        })();
+    </script>
 </body>
 
 </html>
