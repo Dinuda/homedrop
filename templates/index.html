@@ -13,13 +13,13 @@
         document.location.search = s;
     }
 
-    (function() {
-    // your page initialization code here. the DOM will be available here
+    (function () {
+        // your page initialization code here. the DOM will be available here
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category')
         const location = urlParams.get('location')
 
-        document.getElementsByName("menu-item").forEach(function(menu){
+        document.getElementsByName("menu-item").forEach(function (menu) {
             menu.classList.remove("active");
         });
 
@@ -50,10 +50,12 @@
     <!-- Amado Nav -->
     <nav class="amado-nav">
         <ul>
-            <li id="category-" name="menu-item"><a onclick="insertParam('category', '')" href="#">All Categories</a></li>
+            <li id="category-" name="menu-item"><a onclick="insertParam('category', '')" href="#">All Categories</a>
+            </li>
             {% if categories %}
             {% for row in categories %}
-            <li id="category-{{row[0] }}" name="menu-item"><a onclick="insertParam('category', '{{row[0] }}')" href="#">{{ row[1] }}</a></li>
+            <li id="category-{{row[0] }}" name="menu-item"><a onclick="insertParam('category', '{{row[0] }}')"
+                    href="#">{{ row[1] }}</a></li>
             </table>
             {% endfor %}
             {% endif %}
@@ -69,7 +71,8 @@
             <li id="location-" name="menu-item"><a onclick="insertParam('location', '')" href="#">All Locations</a></li>
             {% if locations %}
             {% for row in locations %}
-            <li id="location-{{row[0] }}" name="menu-item"><a onclick="insertParam('location', '{{row[0] }}')" href="#">{{ row[1] }}</a></li>
+            <li id="location-{{row[0] }}" name="menu-item"><a onclick="insertParam('location', '{{row[0] }}')"
+                    href="#">{{ row[1] }}</a></li>
             </table>
             {% endfor %}
             {% endif %}
@@ -100,18 +103,22 @@
         {% for row in vendors%}
         <!-- Single Catagory -->
         <div class="single-products-catagory clearfix">
-            <a href="vendor/{{row[0] }}">
+            <a href="vendor/{{ row[0] }}">
+                {% if (row[4]) %}
+                <img src="/img/{{ row[4] }}" alt="">
+                {% else %}
                 <img src="images/bg-img/1.jpg" alt="">
+                {% endif %}
                 <!-- Hover Content -->
                 <div class="hover-content">
                     <div class="line"></div>
-                    <p>From $180</p>
+                    <p>{{ row[3] }}</p>
                     <h4>{{ row[1] }}</h4>
                 </div>
             </a>
         </div>
         {% endfor %}
         {% endif %}
-</div>
+    </div>
 </div>
 {% endblock %}

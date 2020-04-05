@@ -3,15 +3,15 @@ from flask import redirect, render_template
 
 def homepage(mysql, locationId, categoryId):
     cur = mysql.connection.cursor()
-    sql = '''SELECT vendors.*  from vendors 
-        left join vendor_locations on (vendors.id= vendor_locations.vendor) 
-        where 1=1 '''
+    sql = '''select vendors.id, vendors.name, vendors.site, categories.name, first_image.image from vendors 
+            left join (select * from images where id in (select min(id) from images group by vendor)) as first_image on vendors.id = first_image.vendor
+            join categories on (vendors.category = categories.id)'''
 
     if locationId:
-        sql = sql + " and vendor_locations.location=" + locationId
+        sql = sql + " left join vendor_locations on (vendors.id = vendor_locations.vendor and vendor_locations.location = " + locationId + ")"
 
     if categoryId:
-        sql = sql + " and vendors.category=" + categoryId
+        sql = sql + " where categories.id = " + categoryId + ")"
     
     cur.execute(sql)
     vendors = cur.fetchall()
