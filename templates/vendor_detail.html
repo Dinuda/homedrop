@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+% extends "layout.html" %}
 
 {% block content %}
 
@@ -6,15 +6,10 @@
     <div class="amado-pro-catagory clearfix">
 
         {% if vendors %}
-        {% for row in vendors %}
+        {% for row in vendors%}
         <!-- Single Catagory -->
         <div class="single-products-catagory clearfix">
-            {% for image in images %}
-            <li data-target="#product_details_slider" data-slide-to="3"
-                style="background-image: url('/img/{{ image[2] }}');">
-            </li>
-            {% endfor %}
-            <a href="vendor?id={{ row[0] }}">
+            <a href="vendor/{{ row[0] }}">
                 {% if (row[4]) %}
                 <img src="/img/{{ row[4] }}" alt="">
                 {% else %}

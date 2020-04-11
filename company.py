@@ -8,6 +8,8 @@ def editCompany(mysql, id):
     vendor = None
     contacts = None
     images = None
+    locations = None
+    vendor_locations = None
     if id:
         print('edit:' + str(id))
         cur = mysql.connection.cursor()
@@ -23,6 +25,16 @@ def editCompany(mysql, id):
         cur.execute("SELECT * FROM images where vendor=%s " , [id])
         images = cur.fetchall()
         print(images)
+        #get locations
+        cur.execute("SELECT * FROM locations")
+        locations = cur.fetchall()
+        print(locations)
+        #get vendor location where vendor=%s
+        cur.execute('''SELECT vendor_locations.*,locations.location as location_name FROM home_delivery.vendor_locations 
+                        left outer join home_delivery.locations 
+                        on home_delivery.vendor_locations.location =home_delivery.locations.id where vendor=%s ''', [id])
+        vendor_locations = cur.fetchall()
+        print(vendor_locations)
         cur.close()
     else:
         print('create a new company')
@@ -30,13 +42,13 @@ def editCompany(mysql, id):
     cur.execute("SELECT * FROM categories;")
     categories = cur.fetchall()
     cur.close()
-    return render_template('edit_company.html',categories=categories, vendor=vendor ,contacts=contacts ,images=images)
+    return render_template('edit_company.html',categories=categories, vendor=vendor ,contacts=contacts ,images=images,locations=locations, vendor_locations=vendor_locations)
 
 def editSubmit(mysql, name, site, category, id):
     if id:
         print('update')
         cursor = mysql.connection.cursor()
-        cursor.execute("UPDATE home_delivery.vendors SET name=%s , site=%s , category=%s  WHERE id=%s",(name ,  site ,category, id ))    
+        cursor.execute("UPDATE home_delivery.vendors SET name=%s , site=%s , category=%s  WHERE id=%s",(name ,  site , category, id ))    
         mysql.connection.commit()
         cursor.close()
     else:
@@ -70,9 +82,11 @@ def editDeleteImg(mysql,id,vendor):
 
     return redirect('/edit_company?id=' + str(vendor)) 
 
-def editContact(mysql,vendor,contact):
+def editContact(mysql,vendor,contact,detail,whatsapp,viber,call,SMS):
+    sql = "INSERT INTO home_delivery.contacts(vendor , phone , detail, whatsapp, viber, callnum, messege) VALUES ({0},'{1}','{2}',{3},{4},{5},{6})".format(vendor , contact, detail, whatsapp, viber, call, SMS)
+    print(sql)
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO home_delivery.contacts(vendor , phone) VALUES(%s,%s)",(vendor , contact))
+    cur.execute(sql)
     mysql.connection.commit()
     cur.close()
 
@@ -85,6 +99,17 @@ def editDeleteContact(mysql, id, vendor):
     cur.close()
 
     return redirect('/edit_company?id=' + str(vendor)) 
+
+def editDeleteLocation(mysql, id, vendor_id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM vendor_locations where id=%s " , [id])
+    mysql.connection.commit()
+    cur.close()
+
+    return redirect('/edit_company?id=' + str(vendor_id)) 
+
+
+
 
 
 

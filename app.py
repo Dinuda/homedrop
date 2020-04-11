@@ -37,9 +37,9 @@ def homePage():
     return index.homepage(mysql, locationId, categoryId)
 
 
-@app.route('/vendor/<vendorid>')
-def vendorDetail(vendorid):
-    vendorId = request.args.get("vendorid")
+@app.route('/vendor')
+def vendorDetail():
+    vendorid = request.args.get("id")
     return vendor.vendorDetail(mysql ,vendorid)
 
 @app.route('/newuser', methods=['GET', 'POST'])
@@ -52,9 +52,27 @@ def user_reg():
     email = request.form['email']
     passw = request.form['passw']
     phone = request.form['phone']
+    detail = request.form['detail']
     cursor = mysql.connection.cursor()
-    return user.userReg(mysql, id)
+    cursor.execute("INSERT INTO home_delivery.contacts(vendorid , phone , detail) VALUES (%s,%s,%s)",(vendorid , phone , detail))    
+    mysql.connection.commit()   
+    cur.close() 
 
+@app.route('/submit_insert_location',methods=['POST'])
+def company_location():
+    location = request.form['location']
+    vendor = request.form['vendor']
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO home_delivery.vendor_locations(vendor, location) VALUES (%s, %s)",(vendor, location))
+    mysql.connection.commit()
+    cur.close()
+    return redirect('/edit_company?id=' + str(vendor)) 
+
+@app.route('/delete_location' , methods=['GET'])
+def delete_location():
+    id = request.args.get("id")
+    vendor_id = request.args.get("vendorid")
+    return company.editDeleteLocation(mysql, id, vendor_id)
 
 @app.route('/edit_company')
 def create_company():
@@ -66,16 +84,8 @@ def new_comp():
     name = request.form['name']
     site = request.form['site']
     category = request.form['category']
-    id = request.form.get('id')
+    id = request.form.get('id')                 
     return company.editSubmit(mysql, name, site, category, id)
-   
-@app.route('/submit_message', methods=['POST'])
-def submit_message():
-    message = request.form['message']
-    phone = request.form['phone']
-    vendorid = request.form['vendor']
-    return vendor.vendorSendMessage(message, phone, vendorid)
-
 
 @app.route('/submit_flyer_edit_company', methods= ['POST'])
 def submit_flyer_edit_company():
@@ -89,7 +99,32 @@ def submit_contacts_edit_company():
     vendor = request.form['id']
     print(vendor)
     contact = request.form['contact']
-    return company.editContact(mysql,vendor,contact)
+
+    detail =  ''
+    if request.form.get('detail'):
+        detail = request.form.get('detail')
+
+    whatsapp = 0
+    if request.form.get('whatsapp'):
+        whatsapp = 1
+
+    viber = 0
+    if request.form.get('viber'):
+        viber = 1
+
+    call = 0
+    if request.form.get('call'):
+        call = 1
+
+    SMS = 0
+    if request.form.get('SMS'):
+        SMS = 1
+
+    print(whatsapp)
+    print(viber)
+    print(call)
+    print(SMS)
+    return company.editContact(mysql,vendor,contact,detail,whatsapp,viber,call,SMS)
 
 @app.route('/img/<path:filename>')  
 def send_file(filename):  
@@ -106,3 +141,12 @@ def delete_phone():
     id = request.args.get("id")
     vendor = request.args.get("vendor")
     return company.editDeleteContact(mysql, id, vendor)
+   
+@app.route('/submit_message', methods=['POST'])
+def submit_message():
+    message = request.form['message']
+    phone = request.form['phone']
+    vendorid = request.form['vendor']
+    return vendor.vendorSendMessage( message, phone, vendorid)
+
+

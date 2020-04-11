@@ -12,12 +12,20 @@ def vendorDetail(mysql , vendorid):
     phones = cur.fetchall()
     print(phones)
 
-    return render_template('vendor.html', vendor=vendor[0], phones=phones)
+    #get images for vendor
+    cur.execute("SELECT * FROM home_delivery.images where vendor=" + vendorid + ";")
+    images = cur.fetchall()
+    print(images)
 
-def vendorSendMessage(message, phone, vendor):
+    return render_template('vendor.html' , vendor=vendor[0],  phones=phones, images = images  )
+
+
+def vendorSendMessage(message, phone, vendorid):
     url = 'http://www.textit.biz/sendmsg?id=94767819556&pw=6476&to=' + phone + '&text=' + message 
     print(url)
     response = requests.get(url)
     print(response)
     print(phone)
-    return redirect('/vendor/' + vendor)
+    message = "text message sent to vendor"
+    return redirect('/vendor?id=' + vendorid + '&message=' + message)
+
