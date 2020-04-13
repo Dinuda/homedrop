@@ -65,7 +65,7 @@ def editSubmit(mysql, name, site, category, id):
 def editFlyer(mysql,id,upload):
     print('image for:' + str(id))
     file_name = str(secure_filename(upload.filename))
-    image_path = 'images\\'+ file_name
+    image_path = 'images/'+ file_name
     upload.save(image_path)
     cursor = mysql.connection.cursor()
     cursor.execute("INSERT INTO images (vendor, image) VALUES (%s,%s)",(id,file_name))

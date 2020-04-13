@@ -1,5 +1,7 @@
 from flask import redirect, render_template
 import requests
+import datetime
+
 
 
 def vendorDetail(mysql , vendorid):
@@ -20,12 +22,14 @@ def vendorDetail(mysql , vendorid):
     return render_template('vendor.html' , vendor=vendor[0],  phones=phones, images = images  )
 
 
-def vendorSendMessage(message, phone, vendorid):
-    url = 'http://www.textit.biz/sendmsg?id=94767819556&pw=6476&to=' + phone + '&text=' + message 
+def vendorSendMessage(mysql, message, vendor_phone, vendorid,  user_phone ):
+    cursor = mysql.connection.cursor()
+    now = datetime.datetime.now()
+    cursor.execute("INSERT INTO home_delivery.orders(user_phone , vendor_phone, message , vendor , time) VALUES (%s, %s, %s, %s, %s)", (user_phone , vendor_phone, message , vendorid, now))
+    mysql.connection.commit()
+    cursor.close()
+    url = 'http://www.textit.biz/sendmsg?id=94767819556&pw=6476&to=' + vendor_phone + '&text=' + message 
     print(url)
-    response = requests.get(url)
-    print(response)
-    print(phone)
-    message = "text message sent to vendor"
+    requests.get(url)
     return redirect('/vendor?id=' + vendorid + '&message=' + message)
 

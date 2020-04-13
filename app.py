@@ -56,7 +56,7 @@ def user_reg():
     cursor = mysql.connection.cursor()
     cursor.execute("INSERT INTO home_delivery.contacts(vendorid , phone , detail) VALUES (%s,%s,%s)",(vendorid , phone , detail))    
     mysql.connection.commit()   
-    cur.close() 
+    cursor.close() 
 
 @app.route('/submit_insert_location',methods=['POST'])
 def company_location():
@@ -128,7 +128,7 @@ def submit_contacts_edit_company():
 
 @app.route('/img/<path:filename>')  
 def send_file(filename):  
-    return send_from_directory('images//', filename)
+    return send_from_directory('images/', filename)
 
 @app.route('/delete_img' )
 def delete_img():
@@ -145,8 +145,9 @@ def delete_phone():
 @app.route('/submit_message', methods=['POST'])
 def submit_message():
     message = request.form['message']
-    phone = request.form['phone']
+    vendor_phone = request.form['vendor_phone']
     vendorid = request.form['vendor']
-    return vendor.vendorSendMessage( message, phone, vendorid)
+    user_phone = request.form['user_phone']
+    return vendor.vendorSendMessage(mysql, message , vendor_phone , vendorid , user_phone)
 
 

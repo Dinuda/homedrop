@@ -100,17 +100,17 @@
     {% for contact in contacts %}
     <input type="hidden" name="id">
     <br>
-    {{ contact[3] }} : {{ contact[2] }} :-
-    {% if contact[4] == 1 %}
+    {{ contact[7] }} : {{ contact[2] }} :-
+    {% if contact[5] == 1 %}
     Can Call ,
     {% endif %}
-    {% if contact[5] == 1 %}
+    {% if contact[3] == 1 %}
     Can Whatsapp ,
     {% endif %}
-    {% if contact[6] == 1 %}
+    {% if contact[4] == 1 %}
     Can Viber ,
     {% endif %}
-    {% if contact[7] == 1 %}
+    {% if contact[6] == 1 %}
     Can SMS ,
     {% endif %}
     <br>

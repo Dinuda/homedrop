@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
@@ -30,8 +31,11 @@
                 <div class="col-12">
                     <div class="search-content">
                         <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="images/core-img/search.png" alt=""></button>
+                            <input type="search" name="search" id="search"
+                                placeholder="Type your keyword...">
+                            <button type="submit"><img
+                                    src="images/core-img/search.png"
+                                    alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -47,7 +51,8 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="images/core-img/logo-only.png" alt=""></a>
+                <a href="index.html"><img src="images/core-img/logo-only.png"
+                        alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -73,12 +78,14 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li id="category-" name="menu-item"><a onclick="insertParam('category', '')" href="#">All
+                    <li id="category-" name="menu-item"><a
+                            onclick="insertParam('category', '')" href="#">All
                             Categories</a>
                     </li>
                     {% if categories %}
                     {% for row in categories %}
-                    <li id="category-{{row[0] }}" name="menu-item"><a onclick="insertParam('category', '{{row[0] }}')"
+                    <li id="category-{{row[0] }}" name="menu-item"><a
+                            onclick="insertParam('category', '{{row[0] }}')"
                             href="#">{{ row[1] }}</a></li>
                     </table>
                     {% endfor %}
@@ -92,11 +99,13 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li id="location-" name="menu-item"><a onclick="insertParam('location', '')" href="#">All
+                    <li id="location-" name="menu-item"><a
+                            onclick="insertParam('location', '')" href="#">All
                             Locations</a></li>
                     {% if locations %}
                     {% for row in locations %}
-                    <li id="location-{{row[0] }}" name="menu-item"><a onclick="insertParam('location', '{{row[0] }}')"
+                    <li id="location-{{row[0] }}" name="menu-item"><a
+                            onclick="insertParam('location', '{{row[0] }}')"
                             href="#">{{ row[1] }}</a></li>
                     </table>
                     {% endfor %}
@@ -105,16 +114,73 @@
             </nav>
             <!-- Social Button -->
             <div class="social-info d-flex mb-100 mt-100">
-                <a href="#"><i class="fa fa-facebook mr-15" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter mr-15" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-facebook mr-15"
+                        aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter mr-15"
+                        aria-hidden="true"></i></a>
             </div>
         </header>
+        <div class="products-catagories-area clearfix">
 
-        <!-- Content Area Start -->
-        {% block content %}{% endblock %}
-        <!-- Content Area Start -->
+            <div class="location-wrapper clearfix">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="location-content first-dropdown">
+                                <h5 class="ml-15  mt-3" for="category-select">
+                                    What to buy?</h5>
+                                <div>
+                                    <select id="category-select"
+                                        class="nice-select w-100 location-element">
+                                        <span class="current">Select
+                                            Category</span>
+                                        <option value="" class="option selected focus">
+                                            All Categories</option>
+                                        {% if categories %}
+                                        {% for row in categories %}
+                                        <option class="option"
+                                            value="{{ row[0] }}">{{ row[1] }}
+                                        </option>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="location-content second-dropdown">
+                                <h5 class="ml-15 mt-3" for="category-select">
+                                    Where to deliver?</h5>
+                                <div>
+                                    <select id="location-select"
+                                        class="nice-select w-100 location-element">
+                                        <span class="current">Select
+                                            Location</span>
+                                        <option value="" class="option selected focus">
+                                            All Locations</option>
+                                        {% if locations %}
+                                        {% for row in locations %}
+                                        <option class="option"
+                                            value="{{ row[0] }}">{{ row[1] }}
+                                        </option>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Content Area Start -->
+            {% block content %}{% endblock %}
+            <!-- Content Area Start -->
+        </div>
 
         <!-- Product Catagories Area End -->
+    </div>
+
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
 
@@ -127,15 +193,20 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.html"><img src="images/core-img/logo-only.png" alt=""></a>
+                            <a href="index.html"><img
+                                    src="images/core-img/logo-only.png"
+                                    alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
-                            template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This
+                            template is made with <i class="fa fa-heart-o"
+                                aria-hidden="true"></i> by <a
+                                href="https://colorlib.com"
+                                target="_blank">Colorlib</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
@@ -145,21 +216,29 @@
                     <div class="single_widget_area">
                         <!-- Footer Menu -->
                         <div class="footer_menu">
-                            <nav class="navbar navbar-expand-lg justify-content-end">
-                                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#footerNavContent" aria-controls="footerNavContent"
-                                    aria-expanded="false" aria-label="Toggle navigation"><i
+                            <nav
+                                class="navbar navbar-expand-lg justify-content-end">
+                                <button class="navbar-toggler" type="button"
+                                    data-toggle="collapse"
+                                    data-target="#footerNavContent"
+                                    aria-controls="footerNavContent"
+                                    aria-expanded="false"
+                                    aria-label="Toggle navigation"><i
                                         class="fa fa-bars"></i></button>
-                                <div class="collapse navbar-collapse" id="footerNavContent">
+                                <div class="collapse navbar-collapse"
+                                    id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
                                         <li class="nav-item active">
-                                            <a class="nav-link" href="/">Home</a>
+                                            <a class="nav-link"
+                                                href="/">Home</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Create a shop</a>
+                                            <a class="nav-link" href="#">Create
+                                                a shop</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Contact us</a>
+                                            <a class="nav-link" href="#">Contact
+                                                us</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -187,6 +266,37 @@
     {% block scripts %}{% endblock %}
     <!-- Scripts Area End -->
     <script>
+        $(document).ready(function () {
+            $('#category-select').niceSelect();
+            $('#location-select').niceSelect();
+
+            $('#category-select').on('change', function () {
+                filterByCategory(this.value);
+            });
+
+            $('#location-select').on('change', function () {
+                filterByLocation(this.value);
+            });
+            initFilters();
+
+        });
+
+        function filterByLocation(location) {
+            const urlParams = new URLSearchParams(window.location.search);
+            var category = urlParams.get('category')
+            category = !category || isNaN(category) ? '' : category;
+
+            document.location.href = '/?location=' + location + '&category=' + category;
+        }
+
+        function filterByCategory(category) {
+            const urlParams = new URLSearchParams(window.location.search);
+            var location = urlParams.get('location')
+            location = !location || isNaN(location)?  '' : location;
+
+            document.location.href = '/?location=' + location + '&category=' + category;
+        }
+
         function insertParam(key, value) {
             key = encodeURIComponent(key); value = encodeURIComponent(value);
             var s = document.location.search;
@@ -197,20 +307,32 @@
             //again, do what you will here
             document.location.search = s;
         }
-    
-        (function () {
-            // your page initialization code here. the DOM will be available here
+
+        function initFilters() {
             const urlParams = new URLSearchParams(window.location.search);
             var category = urlParams.get('category')
             var location = urlParams.get('location')
-    
+
             document.getElementsByName("menu-item").forEach(function (menu) {
                 menu.classList.remove("active");
             });
-            category = category? category: '';
+            category = !category || isNaN(category) ? '' : category;
+            location = !location || isNaN(location)?  '' : location;
+
             document.getElementById("category-" + category).className += "active";
             document.getElementById("location-" + location).className += "active";
-        })();
+
+            if (category){
+                $('#category-select').val(category)
+                $('#category-select').niceSelect('update'); 
+            }
+            
+            if (location) {
+                $('#location-select').val(location)
+                $('#location-select').niceSelect('update'); 
+            }
+            
+        }
     </script>
 </body>
 

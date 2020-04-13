@@ -1,19 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="single-product-area section-padding-100 clearfix">
+<div class="single-product-area clearfix">
     <div class="container-fluid">
 
         <div class="row">
             <div class="col-12 col-lg-7">
                 <div class="single_product_thumb">
 
-                    <div id="product_details_slider" class="carousel slide" data-ride="carousel">
+                    <div id="product_details_slider" class="carousel slide"
+                        data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 {% for image in images %}
-                                <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                    <img class="d-block w-100" src="/img/{{ image[2] }}" alt="First slide">
+                                <a class="gallery_img"
+                                    href="/img/{{ image[2] }}">
+                                    <img class="d-block w-100"
+                                        src="/img/{{ image[2] }}"
+                                        alt="First slide">
                                 </a>
                                 {% endfor %}
                             </div>
@@ -23,41 +27,86 @@
             </div>
             <div class="col-12 col-lg-5">
                 <div class="single_product_desc">
-                    <!-- Product Meta Data -->
-                    <div class="product-meta-data">
-                        <div class="line"></div>
-                        <h2> {{ vendor[1] }}</h2>
-                    </div>
 
-                    <div class="short_overview my-5">
-                        <form method="POST" action="/submit_message">
-                            <!-- Define what to do -->
-                            <p>
-                                Select any phone number of the shopkeeper and click to send to send a SMS.
-                            </p>
-                            <!-- select drop down list -->
-                            <label for="phone">Choose a phone number:</label>
-                            <br>
-                            <select id="phone" name="phone">
-                                {% if phones %}
-                                {% for row in phones %}
-                                <option value=" {{ row[2] }}">{{ row[3] }} : {{ row[2] }}</option>
-                                {% endfor %}
-                                {% endif %}
-                            </select>
-                            <br>
-                            <br>
-                            <textarea name="message" rows="10" cols="30"></textarea>
-                            <br><br>
-                            <input type="hidden" id="vendor" name="vendor" value="{{ vendor[0] }}">
-                            <!-- Submit message -->
-
-                            <button type="submit" name="submit" class="btn amado-btn">Send SMS</button>
-
+                    <div class="short_overview mt-5">
+                        <!-- Product Meta Data -->
+                        <div class="product-meta-data">
+                            <div class="line"></div>
+                            <h2> {{ vendor[1] }}</h2>
+                            {% if  vendor[2] %}
                             <div>
-                                {{ message }}
+                                Site : <a target="_blank"
+                                    href="http://{{ vendor[2] }}">{{ vendor[2] }}</a>
                             </div>
-                        </form>
+                            {% endif %}
+                        </div>
+
+                        {% if phones %}
+                        <br>
+                        <select id="phone" name="phone">
+
+                            {% for row in phones %}
+                            <option whatsapp="{{ row[3] }}"
+                                viber="{{ row[4] }}" call="{{ row[5] }}"
+                                sms="{{ row[6] }}"
+                                value=" {{ row[2] }}">
+                                {{ row[7] }} :
+                                {{ row[2] }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <br>
+                        <div id="smsdiv">
+                            <h4>Send free SMS to vendor:</h4>
+                            <form method="POST" action="/submit_message">
+                                <label for="fname">Enter phone number</label>
+                                <input type="text" id="user_phone"
+                                    name="user_phone"><br><br>
+                                <textarea name="message" rows="10"
+                                    cols="30"></textarea>
+                                <br>
+
+                                <input type="hidden" id="vendor" name="vendor"
+                                    value="{{ vendor[0] }}">
+                                <input type="hidden" id="formToNumber" name="vendor_phone" value="">
+                                <!-- Submit message -->
+
+                                <button type="submit" name="submit"
+                                    class="btn amado-btn"
+                                    onclick="alertuser()">Send
+                                    SMS</button>
+                                <br>
+                            </form>
+                        </div>
+                        {% endif %}
+
+                        <br>
+                        <div id="calldiv">
+                            <button class="btn amado-btn" onclick="takeCall()">
+                                Take a Call</button>
+                            <br>
+                        </div>
+
+                        <br>
+                        <div id="whatsappdiv">
+                            <button class="btn amado-btn"
+                                onclick="openWhatsapp()">Use
+                                Whatsapp</button><br>
+                        </div>
+
+                        <br>
+                        <div id="viberdiv">
+                            <button class="btn amado-btn"
+                                onclick="openViber()">Use
+                                Viber</button><br>
+                        </div>
+
+
+                        <br>
+
+                        <div>
+                            {{ message }}
+                        </div>
                     </div>
 
                 </div>
@@ -65,6 +114,76 @@
         </div>
     </div>
 </div>
-</div>
-</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+    $(document).ready(function () {
+
+        setViewOnPhoneSelect();
+
+        $("#phone").change(function () {
+            setViewOnPhoneSelect();
+        });
+    });
+
+    function setViewOnPhoneSelect() {
+        // set hidden form value depending on selected phone
+        var selectedPhone = $("#phone").val();
+        $('#formToNumber').val(selectedPhone)
+
+        var selectedOption = $("#phone").children("option:selected");
+
+        var whatsapp = selectedOption.attr('whatsapp');
+        var viber = selectedOption.attr('viber');
+        var call = selectedOption.attr('call');
+        var sms = selectedOption.attr('sms');
+
+        if (whatsapp === '1') {
+            $("#whatsappdiv").show();
+        } else {
+            $("#whatsappdiv").hide();
+            console.log('hide');
+        }
+        if (viber === '1') {
+            $("#viberdiv").show();
+            console.log('show');
+        } else {
+            $("#viberdiv").hide();
+            console.log('hide');
+        }
+        if (call === '1') {
+            $("#calldiv").show();
+            console.log('show');
+        } else {
+            $("#calldiv").hide();
+            console.log('hide');
+        }
+        if (sms === '1') {
+            $("#smsdiv").show();
+            console.log('show');
+        } else {
+            $("#smsdiv").hide();
+            console.log('hide');
+        }
+    }
+
+    function takeCall() {
+        var phone = document.getElementById('phone').value;
+        location.href = "tel:" + phone;
+    }
+
+    function openWhatsapp() {
+        var phone = document.getElementById('phone').value;
+        location.href = "https://wa.me/" + phone + "/?text=urlencodedtext";
+    }
+    function openViber() {
+        var phone = document.getElementById('phone').value;
+        location.href = "viber://add?number=" + phone;
+    }
+    function alertuser() {
+        alert("SMS sent to vendor ");
+    }
+</script>
 {% endblock %}
