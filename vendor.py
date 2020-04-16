@@ -28,8 +28,11 @@ def vendorSendMessage(mysql, message, vendor_phone, vendorid,  user_phone ):
     cursor.execute("INSERT INTO home_delivery.orders(user_phone , vendor_phone, message , vendor , time) VALUES (%s, %s, %s, %s, %s)", (user_phone , vendor_phone, message , vendorid, now))
     mysql.connection.commit()
     cursor.close()
-    url = 'http://www.textit.biz/sendmsg?id=94767819556&pw=6476&to=' + vendor_phone + '&text=' + message 
+    message_sent = "Your message is sent"
+    vendor_message = "Hello you have a new order from: " + user_phone + ". Order is :" +message
+    print (vendor_message)
+    url = 'http://www.textit.biz/sendmsg?id=94767819556&pw=6476&to=' + vendor_phone + '&text=' + vendor_message  + message_sent
     print(url)
     requests.get(url)
-    return redirect('/vendor?id=' + vendorid + '&message=' + message)
+    return redirect('/vendor?id=' + vendorid + '&notification=' + message_sent)
 

@@ -19,7 +19,7 @@ mysql = database.getDatabase(app)
 @app.context_processor
 def inject_filter_menu():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM home_delivery.locations;")
+    cur.execute("SELECT * FROM home_delivery.locations ORDER BY location ;")
     locations = cur.fetchall()
 
     cur = mysql.connection.cursor()

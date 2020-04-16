@@ -13,7 +13,7 @@
     --------------------------------------- */
 
 .main-content-wrapper .header-area .amado-nav li a {
-  padding: 10px 0;
+  padding: 10px ;
 }
 
 .auto-cursor {
@@ -27,9 +27,20 @@
 .single-products-catagory .hover-content {
   width: 100%;
   padding-left: 40px;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.98);
+  padding: 5px;
   left: 0px;
+}
+
+.hover-border {
+  padding: 15px;
+  border: #ced4da;
+  border-width: thin;
+  border-style: solid;  
+  background-color: rgba(255, 255, 255, 0.98);
+}
+
+.single-product-link {
+  padding:10px
 }
 
 .single-products-catagory:hover .hover-content p,
@@ -40,7 +51,7 @@
 }
 
 .single-products-catagory {
-  padding: 5px;
+  /*padding: 5px;*/
 }
 
 .main-content-wrapper .header-area .logo {
@@ -75,7 +86,7 @@
   z-index: 5000;
   top: -350px;
   left: 0;
-  background-color: #f5f7fa;
+  background-color: #dee2e6;
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms;
   padding-top: 20px;
@@ -126,13 +137,14 @@
 .products-catagories-area {
   background-color: #f5f7fa;
 }
-
+/*
 @media only screen and (min-width: 769px) {
   .single-product-area {
     padding-left: 70px;
     padding-top: 20px;
   }
 }
+*/
 
 .main-content-wrapper
   .single-product-area
@@ -143,4 +155,16 @@
   outline: 0 solid transparent;
   color: #007bff;
   font-size: 15px;
+}
+
+.whatsapp_icon{
+  background-image: url(/images/whatsapp.png);
+  width: 75px;
+  height: 75px;
+}
+
+.viber_icon{
+  background-image: url(/images/viber.png);
+  width: 75px;
+  height: 75px;
 }

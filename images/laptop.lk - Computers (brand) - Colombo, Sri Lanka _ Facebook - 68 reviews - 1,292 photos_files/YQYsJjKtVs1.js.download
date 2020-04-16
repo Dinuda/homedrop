@@ -1,0 +1,3 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["T7b+m"]); }
+
+__d("UFI2CommentAnimatedImageAttachmentPlayer.react",["React","VideoComponentWithLoopingPlayback.react","VideoDataContainer.react","VideoPlayer.react"],(function(a,b,c,d,e,f){"use strict";var g=b("React");function a(a){var c=a.autoplay;c=c===void 0?!0:c;var d=a.onVpcUpdate;a=a.videoID;return g.jsx(b("VideoDataContainer.react"),{videoID:a,children:g.jsxs(b("VideoPlayer.react"),{autoplay:c,onVpcUpdate:d,playerOrigin:"comment",startMuted:!0,subOrigin:"animated_image_share",videoData:b("VideoDataContainer.react").VIDEO_DATA_PLACEHOLDER,children:[g.jsx(b("VideoComponentWithLoopingPlayback.react"),{}),null]})})}e.exports=a}),null);

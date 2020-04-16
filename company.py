@@ -32,7 +32,7 @@ def editCompany(mysql, id):
         #get vendor location where vendor=%s
         cur.execute('''SELECT vendor_locations.*,locations.location as location_name FROM home_delivery.vendor_locations 
                         left outer join home_delivery.locations 
-                        on home_delivery.vendor_locations.location =home_delivery.locations.id where vendor=%s ''', [id])
+                        on home_delivery.vendor_locations.location =home_delivery.locations.id where vendor=%s''', [id])
         vendor_locations = cur.fetchall()
         print(vendor_locations)
         cur.close()

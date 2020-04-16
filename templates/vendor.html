@@ -8,16 +8,12 @@
             <div class="col-12 col-lg-7">
                 <div class="single_product_thumb">
 
-                    <div id="product_details_slider" class="carousel slide"
-                        data-ride="carousel">
+                    <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 {% for image in images %}
-                                <a class="gallery_img"
-                                    href="/img/{{ image[2] }}">
-                                    <img class="d-block w-100"
-                                        src="/img/{{ image[2] }}"
-                                        alt="First slide">
+                                <a class="gallery_img" href="/img/{{ image[2] }}">
+                                    <img class="d-block w-100" src="/img/{{ image[2] }}" alt="First slide">
                                 </a>
                                 {% endfor %}
                             </div>
@@ -27,7 +23,6 @@
             </div>
             <div class="col-12 col-lg-5">
                 <div class="single_product_desc">
-
                     <div class="short_overview mt-5">
                         <!-- Product Meta Data -->
                         <div class="product-meta-data">
@@ -35,75 +30,57 @@
                             <h2> {{ vendor[1] }}</h2>
                             {% if  vendor[2] %}
                             <div>
-                                Site : <a target="_blank"
-                                    href="http://{{ vendor[2] }}">{{ vendor[2] }}</a>
+                                Site : <a target="_blank" href="http://{{ vendor[2] }}">{{ vendor[2] }}</a>
                             </div>
                             {% endif %}
                         </div>
-
                         {% if phones %}
-                        <br>
+                        <div class="mb-10"></div>
                         <select id="phone" name="phone">
 
                             {% for row in phones %}
-                            <option whatsapp="{{ row[3] }}"
-                                viber="{{ row[4] }}" call="{{ row[5] }}"
-                                sms="{{ row[6] }}"
+                            <option whatsapp="{{ row[3] }}" viber="{{ row[4] }}" call="{{ row[5] }}" sms="{{ row[6] }}"
                                 value=" {{ row[2] }}">
                                 {{ row[7] }} :
                                 {{ row[2] }}</option>
                             {% endfor %}
+                            <div class="mb-15"></div>
                         </select>
-
-                        <br>
+                        <div class="mb-15"></div>
                         <div id="smsdiv">
+                            <div class="mb-30"></div>
                             <h4>Send free SMS to vendor:</h4>
                             <form method="POST" action="/submit_message">
-                                <label for="fname">Enter phone number</label>
-                                <input type="text" id="user_phone"
-                                    name="user_phone"><br><br>
-                                <textarea name="message" rows="10"
-                                    cols="30"></textarea>
-                                <br>
-
-                                <input type="hidden" id="vendor" name="vendor"
-                                    value="{{ vendor[0] }}">
-                                <input type="hidden" id="formToNumber" name="vendor_phone" value="">
+                                <input class="form-control mb-15 " placeholder="Your Phone Number" type="text"
+                                    id="user_phone" name="user_phone">
+                                <textarea name="message" class="form-control w-100" cols="10" rows="15"
+                                    placeholder="Type in your order"></textarea>
+                                <input type="hidden" id="vendor" name="vendor" value="{{ vendor[0] }}">
+                                <input type="hidden" id="formToNumber" name="vendor_phone" value="" class="mb-15">
                                 <!-- Submit message -->
-
-                                <button type="submit" name="submit"
-                                    class="btn amado-btn"
-                                    onclick="alertuser()">Send
+                                <div class="mb-15"></div>
+                                <button type="submit" name="submit" class="btn amado-btn" onclick="alertuser()">Send
                                     SMS</button>
-                                <br>
                             </form>
                         </div>
                         {% endif %}
-
-                        <br>
+                        <div id="text">
+                        </div>
+                        <div class="mt-30"></div>
+                        <div class="mb-30"></div>
+                        <div class="mt-15"></div>
                         <div id="calldiv">
                             <button class="btn amado-btn" onclick="takeCall()">
                                 Take a Call</button>
-                            <br>
                         </div>
-
-                        <br>
                         <div id="whatsappdiv">
-                            <button class="btn amado-btn"
-                                onclick="openWhatsapp()">Use
-                                Whatsapp</button><br>
+                            <button class="whatsapp_icon " onclick="openWhatsapp()">
+                                <img src="/images/whatsapp.png"></button>
                         </div>
-
-                        <br>
                         <div id="viberdiv">
-                            <button class="btn amado-btn"
-                                onclick="openViber()">Use
-                                Viber</button><br>
+                            <button class="viber_icon " onclick="openViber()">
+                                <img src="/images/viber.png"></button>
                         </div>
-
-
-                        <br>
-
                         <div>
                             {{ message }}
                         </div>
@@ -126,8 +103,22 @@
         $("#phone").change(function () {
             setViewOnPhoneSelect();
         });
+
+        showAnyNotification();
+
+        $('#phone').niceSelect();
     });
 
+    function showAnyNotification() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const notification = urlParams.get('notification');
+        if (notification) {
+            $("#text").text(notification)
+            $("#text").show();
+        } else {
+            $("#text").hide();
+        }
+    }
     function setViewOnPhoneSelect() {
         // set hidden form value depending on selected phone
         var selectedPhone = $("#phone").val();

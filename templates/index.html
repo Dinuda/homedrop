@@ -13,7 +13,7 @@
                 style="background-image: url('/img/{{ image[2] }}');">
             </li>
             {% endfor %}
-            <a href="vendor?id={{ row[0] }}">
+            <a href="vendor?id={{ row[0] }}" class="single-product-link">
                 {% if (row[4]) %}
                 <img src="/img/{{ row[4] }}" alt="">
                 {% else %}
@@ -21,9 +21,11 @@
                 {% endif %}
                 <!-- Hover Content -->
                 <div class="hover-content">
-                    <div class="line"></div>
-                    <p>{{ row[3] }}</p>
-                    <h4>{{ row[1] }}</h4>
+                    <div class="hover-border">
+                        <div class="line"></div>
+                        <p>{{ row[3] }}</p>
+                        <h4>{{ row[1] }}</h4>
+                    </div>
                 </div>
             </a>
         </div>
