@@ -87,17 +87,14 @@ img {
 .mt-100 {
   margin-top: 100px !important; }
 
-  .mb-10 {
-    margin-bottom: 10px !important; }
+.mb-10 {
+  margin-bottom: 10px !important; }
   
 .mb-15 {
   margin-bottom: 15px !important; }
 
 .mb-30 {
   margin-bottom: 30px !important; }
-
-.mb-50 {
-  margin-bottom: 50px !important; }
 
 .mb-70 {
   margin-bottom: 70px !important; }
@@ -1398,4 +1395,7 @@ img {
     border-radius: 0;
     background-color: #f5f7fa; }
 
+  .container {
+    display: flex; /* or inline-flex */
+  }
 /* ##### The End ##### */

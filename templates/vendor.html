@@ -35,146 +35,149 @@
                             {% endif %}
                         </div>
                         {% if phones %}
-                        <div class="mb-10"></div>
-                        <select id="phone" name="phone">
-
+                        <select id="phone" nfame="phone " class="mb-15">
                             {% for row in phones %}
                             <option whatsapp="{{ row[3] }}" viber="{{ row[4] }}" call="{{ row[5] }}" sms="{{ row[6] }}"
                                 value=" {{ row[2] }}">
                                 {{ row[7] }} :
                                 {{ row[2] }}</option>
                             {% endfor %}
-                            <div class="mb-15"></div>
                         </select>
-                        <div class="mb-15"></div>
                         <div id="smsdiv">
-                            <div class="mb-30"></div>
-                            <h4>Send free SMS to vendor:</h4>
                             <form method="POST" action="/submit_message">
                                 <input class="form-control mb-15 " placeholder="Your Phone Number" type="text"
                                     id="user_phone" name="user_phone">
+                                <div class="mb-15"></div>
                                 <textarea name="message" class="form-control w-100" cols="10" rows="15"
                                     placeholder="Type in your order"></textarea>
                                 <input type="hidden" id="vendor" name="vendor" value="{{ vendor[0] }}">
-                                <input type="hidden" id="formToNumber" name="vendor_phone" value="" class="mb-15">
+                                <input type="hidden" id="formToNumber" name="vendor_phone" value="">
                                 <!-- Submit message -->
-                                <div class="mb-15"></div>
-                                <button type="submit" name="submit" class="btn amado-btn" onclick="alertuser()">Send
+                                <button type="submit" name="submit" class="btn amado-btn mt-30"
+                                    onclick="alertuser()">Send
                                     SMS</button>
                             </form>
                         </div>
+                        <br>
                         {% endif %}
                         <div id="text">
                         </div>
-                        <div class="mt-30"></div>
-                        <div class="mb-30"></div>
-                        <div class="mt-15"></div>
-                        <div id="calldiv">
+                        <div id="calldiv" class="mb-15">
                             <button class="btn amado-btn" onclick="takeCall()">
                                 Take a Call</button>
                         </div>
-                        <div id="whatsappdiv">
-                            <button class="whatsapp_icon " onclick="openWhatsapp()">
-                                <img src="/images/whatsapp.png"></button>
+                        <br>
+                        <div class="container">
+                            <div class="row">
+                                <div>
+                                    <div id="whatsappdiv">
+                                        <button class="whatsapp_icon" onclick="openWhatsapp()">
+                                            <img src="/images/whatsapp.png"></button>
+                                    </div>
+                                </div>
+                                <div class="mr-15"></div>
+                                <div>
+                                    <div id="viberdiv">
+                                        <button class="viber_icon " onclick="openViber()">
+                                            <img src="/images/viber.png"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                {{ message }}
+                            </div>
                         </div>
-                        <div id="viberdiv">
-                            <button class="viber_icon " onclick="openViber()">
-                                <img src="/images/viber.png"></button>
-                        </div>
-                        <div>
-                            {{ message }}
-                        </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
 
-{% block scripts %}
-<script>
+    {% block scripts %}
+    <script>
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        setViewOnPhoneSelect();
-
-        $("#phone").change(function () {
             setViewOnPhoneSelect();
+
+            $("#phone").change(function () {
+                setViewOnPhoneSelect();
+            });
+
+            showAnyNotification();
+
+            $('#phone').niceSelect();
         });
 
-        showAnyNotification();
-
-        $('#phone').niceSelect();
-    });
-
-    function showAnyNotification() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const notification = urlParams.get('notification');
-        if (notification) {
-            $("#text").text(notification)
-            $("#text").show();
-        } else {
-            $("#text").hide();
+        function showAnyNotification() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const notification = urlParams.get('notification');
+            if (notification) {
+                $("#text").text(notification)
+                $("#text").show();
+            } else {
+                $("#text").hide();
+            }
         }
-    }
-    function setViewOnPhoneSelect() {
-        // set hidden form value depending on selected phone
-        var selectedPhone = $("#phone").val();
-        $('#formToNumber').val(selectedPhone)
+        function setViewOnPhoneSelect() {
+            // set hidden form value depending on selected phone
+            var selectedPhone = $("#phone").val();
+            $('#formToNumber').val(selectedPhone)
 
-        var selectedOption = $("#phone").children("option:selected");
+            var selectedOption = $("#phone").children("option:selected");
 
-        var whatsapp = selectedOption.attr('whatsapp');
-        var viber = selectedOption.attr('viber');
-        var call = selectedOption.attr('call');
-        var sms = selectedOption.attr('sms');
+            var whatsapp = selectedOption.attr('whatsapp');
+            var viber = selectedOption.attr('viber');
+            var call = selectedOption.attr('call');
+            var sms = selectedOption.attr('sms');
 
-        if (whatsapp === '1') {
-            $("#whatsappdiv").show();
-        } else {
-            $("#whatsappdiv").hide();
-            console.log('hide');
+            if (whatsapp === '1') {
+                $("#whatsappdiv").show();
+            } else {
+                $("#whatsappdiv").hide();
+                console.log('hide');
+            }
+            if (viber === '1') {
+                $("#viberdiv").show();
+                console.log('show');
+            } else {
+                $("#viberdiv").hide();
+                console.log('hide');
+            }
+            if (call === '1') {
+                $("#calldiv").show();
+                console.log('show');
+            } else {
+                $("#calldiv").hide();
+                console.log('hide');
+            }
+            if (sms === '1') {
+                $("#smsdiv").show();
+                console.log('show');
+            } else {
+                $("#smsdiv").hide();
+                console.log('hide');
+            }
         }
-        if (viber === '1') {
-            $("#viberdiv").show();
-            console.log('show');
-        } else {
-            $("#viberdiv").hide();
-            console.log('hide');
-        }
-        if (call === '1') {
-            $("#calldiv").show();
-            console.log('show');
-        } else {
-            $("#calldiv").hide();
-            console.log('hide');
-        }
-        if (sms === '1') {
-            $("#smsdiv").show();
-            console.log('show');
-        } else {
-            $("#smsdiv").hide();
-            console.log('hide');
-        }
-    }
 
-    function takeCall() {
-        var phone = document.getElementById('phone').value;
-        location.href = "tel:" + phone;
-    }
+        function takeCall() {
+            var phone = document.getElementById('phone').value;
+            location.href = "tel:" + phone;
+        }
 
-    function openWhatsapp() {
-        var phone = document.getElementById('phone').value;
-        location.href = "https://wa.me/" + phone + "/?text=urlencodedtext";
-    }
-    function openViber() {
-        var phone = document.getElementById('phone').value;
-        location.href = "viber://add?number=" + phone;
-    }
-    function alertuser() {
-        alert("SMS sent to vendor ");
-    }
-</script>
-{% endblock %}
+        function openWhatsapp() {
+            var phone = document.getElementById('phone').value;
+            location.href = "https://wa.me/" + phone + "/?text=urlencodedtext";
+        }
+        function openViber() {
+            var phone = document.getElementById('phone').value;
+            location.href = "https://viber.me/{{URI}}"
+;
+        }
+        function alertuser() {
+            alert("SMS sent to vendor ");
+        }
+    </script>
+    {% endblock %}
