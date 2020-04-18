@@ -80,7 +80,7 @@
                                 <div class="mr-15"></div>
                                 <div>
                                     <div id="viberdiv">
-                                        <button class="viber_icon " onclick="openViber()">
+                                        <button class="viber_icon " c onclick="openViber()">
                                             <img src="/images/viber.png"></button>
                                     </div>
                                 </div>
@@ -171,12 +171,19 @@
 
         function openWhatsapp() {
             var phone = document.getElementById('phone').value;
-            location.href = "https://wa.me/" + phone + "/?text=urlencodedtext";
+            //location.href = "https://wa.me/" + phone + "/?text=urlencodedtext";
+            window.open(
+                'https://wa.me/' + phone + '/?text=urlencodedtext',
+                '_blank' // <- This is what makes it open in a new window.
+            );
         }
         function openViber() {
             var phone = document.getElementById('phone').value;
-            location.href = "https://viber.me/{{URI}}"
-                ;
+            //location.href = "https://viber.me/{{URI}}";
+            window.open(
+                'https://viber.me/{{URI}}',
+                '_blank' // <- This is what makes it open in a new window.
+            );
         }
         function alertuser() {
             alert("SMS sent to vendor ");
