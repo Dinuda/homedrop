@@ -3,7 +3,18 @@
 
 <div class="single-product-area clearfix">
     <div class="container-fluid">
-
+        <div class="row">
+            <div class="col-12">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mt-10">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            {% if  vendor[0] %}
+            <li class="breadcrumb-item">{{ vendor[1] }}</li>
+            {% endif %}
+            </ol>
+            </nav>
+            </div>
+            </div>
         <div class="row">
             <div class="col-12 col-lg-7">
                 <div class="single_product_thumb">

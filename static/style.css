@@ -177,3 +177,8 @@
   margin-bottom: 15px;
   display: block;
 }
+
+.breadcrumb{
+  margin-bottom: 0px;
+  padding-left: 0px;
+}
