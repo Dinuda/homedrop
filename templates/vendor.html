@@ -7,7 +7,10 @@
         <div class="row">
             <div class="col-12 col-lg-7">
                 <div class="single_product_thumb">
-
+                    {% if  vendor[0] %}
+                    <div class="line mt-15"></div>
+                    <h2> {{ vendor[1] }}</h2>
+                    {% endif %}
                     <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -26,15 +29,14 @@
                     <div class="short_overview mt-5">
                         <!-- Product Meta Data -->
                         <div class="product-meta-data">
+                            {% if vendor[2] %}
                             <div class="line"></div>
-                            <h2> {{ vendor[1] }}</h2>
-                            {% if  vendor[2] %}
                             <div>
                                 Site : <a target="_blank" href="http://{{ vendor[2] }}">{{ vendor[2] }}</a>
                             </div>
                             {% endif %}
                         </div>
-                        {% if phones %}
+                        {% if phones[0] %}
                         <select id="phone" nfame="phone " class="mb-15">
                             {% for row in phones %}
                             <option whatsapp="{{ row[3] }}" viber="{{ row[4] }}" call="{{ row[5] }}" sms="{{ row[6] }}"
@@ -174,7 +176,7 @@
         function openViber() {
             var phone = document.getElementById('phone').value;
             location.href = "https://viber.me/{{URI}}"
-;
+                ;
         }
         function alertuser() {
             alert("SMS sent to vendor ");

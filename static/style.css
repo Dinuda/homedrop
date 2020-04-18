@@ -168,3 +168,11 @@
   width: 75px;
   height: 75px;
 }
+
+.line {
+  width: 170px;
+  height: 3px;
+  background-color: #fe8800;
+  margin-bottom: 15px;
+  display: block;
+}
