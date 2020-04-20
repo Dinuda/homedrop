@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb tab-menu mt-30 ml-5">
+                <li class="tab-menu-item selected"><a href="/edit_company">Details</a></li>
+                <li class="tab-menu-item"><a href="#">Phone Numbers</a></li>
+                <li class="tab-menu-item"><a href="#">Images</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+{% if vendor[1] %}
+<form method="POST" action="/submit_contacts_edit_company">
+    <input type="hidden" name="id" value="{{ vendor[0] }}">
+    <div class="col-md-6 mb-3">
+        <input type="number" class="form-control" name="contacts" min="0" placeholder="Phone Number" value="">
+        <input type="text" class="form-control" name="detail" placeholder="If you have a phone number for a diffrent location please specify.">
+    </div>
+    <div class="col-12">
+        <div class="custom-control custom-checkbox d-block mb-2">
+            <input type="checkbox" class="custom-control-input" id="customCheck2">
+            <label class="custom-control-label" for="customCheck2">Create an account</label>
+        </div>
+        <div class="custom-control custom-checkbox d-block">
+            <input type="checkbox" class="custom-control-input" name="SMS" value="1">
+            <label class="custom-control-label" for="customCheck3">Can SMS with this number.</label>
+        </div>
+    </div>
+    SMS:<input type="checkbox" id="submit_insert_location" name="SMS" value="1">
+    <br>
+    Call:<input type="checkbox" id="call" name="call" value="1">
+    <br>
+    Whatsapp:<input type="checkbox" id="whatsapp" name="whatsapp" value="1">
+    <br>
+    Viber:<input type="checkbox" id="viber" name="viber" value="1">
+    <br>
+    <input type="submit" value="Submit">
+</form>
+<div class="col-12 mb-3">
+    <input type="text" class="form-control mb-3" id="street_address" placeholder="Address" value="">
+</div>
+<div class="col-12 mb-3">
+    <input type="text" class="form-control" id="city" placeholder="Town" value="">
+</div>
+<div class="col-md-6 mb-3">
+    <input type="text" class="form-control" id="zipCode" placeholder="Zip Code" value="">
+</div>
+<div class="col-md-6 mb-3">
+    <input type="number" class="form-control" id="phone_number" min="0" placeholder="Phone No" value="">
+</div>
+<div class="col-12 mb-3">
+    <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10"
+        placeholder="Leave a comment about your order"></textarea>
+</div>
+<div class="col-12">
+    <div class="custom-control custom-checkbox d-block mb-2">
+        <input type="checkbox" class="custom-control-input" id="customCheck2">
+        <label class="custom-control-label" for="customCheck2">Create an accout</label>
+    </div>
+    <div class="custom-control custom-checkbox d-block">
+        <input type="checkbox" class="custom-control-input" id="customCheck3">
+        <label class="custom-control-label" for="customCheck3">Ship to a different address</label>
+    </div>
+</div>
+</div>
+{% endblock %}

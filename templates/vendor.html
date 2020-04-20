@@ -48,7 +48,7 @@
                             {% endif %}
                         </div>
                         {% if phones[0] %}
-                        <select id="phone" nfame="phone " class="mb-15">
+                        <select id="phone" nfame="phone ">
                             {% for row in phones %}
                             <option whatsapp="{{ row[3] }}" viber="{{ row[4] }}" call="{{ row[5] }}" sms="{{ row[6] }}"
                                 value=" {{ row[2] }}">
@@ -56,6 +56,7 @@
                                 {{ row[2] }}</option>
                             {% endfor %}
                         </select>
+                        <br>
                         <div id="smsdiv">
                             <form method="POST" action="/submit_message">
                                 <input class="form-control mb-15 " placeholder="Your Phone Number" type="text"

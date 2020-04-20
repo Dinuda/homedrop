@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Company signup
+    </title>
+</head>
+
+<body>
+    <div class="cart-title">
+        <h2>Create your company</h2>
+        </div>
+    <form method="POST" action="/submit_edit_company">
+        Company Name : <input type="text" name="name" value="{{ vendor[1] }}" /> <br>
+        Site : <input type="text" name="site" value="{{ vendor[2] }}" /> <br>
+
+        {% if categories %}
+
+
+        <select id="category" name="category">
+            {% for row in categories %}
+            {% if vendor[3] ==  row[0]   %}
+            <option value="{{row[0] }}" selected> {{row[1] }}</option>
+            {% else %}
+            <option value="{{row[0] }}"> {{row[1] }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        {% endif %}
+
+        {% if vendor[0]  %}
+        <input type="hidden" name="id" value="{{ vendor[0] }}">
+        {% endif %}
+
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <br>
+    {% if locations %}
+    <label for="location">Add a location:</label>
+    <form method="POST" action="/submit_insert_location">
+        <select id="location" name="location">
+            {% for row in locations %}
+            <option value="{{row[0] }}"> {{row[1] }}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="vendor" value="{{ vendor[0] }}">
+        <input type="submit" value="Add Location">
+    </form>
+    {% endif %}
+    <br>
+    <br>
+    {% if vendor_locations %}
+    {% for vendor_location in vendor_locations %}
+    {{ vendor_location[3] }}
+    <br>
+    <a href="delete_location?id={{ vendor_location[0] }}&vendorid={{ vendor[0] }}">Delete</a>
+    <br>
+    {% endfor %}
+    {% endif %}
+    {% if vendor[0] %}
+
+    <form method="POST" action="/submit_flyer_edit_company" enctype="multipart/form-data">
+        <input type="file" name="upload">
+        <input type="hidden" name="id" value="{{ vendor[0] }}">
+
+        <input type="submit" value="Submit">
+    </form>
+
+    {% for image in images %}
+    <input type="hidden" name="id">
+    <h6>
+        <img src="/img/{{ image[2] }}" />
+        <a href="delete_img?id={{ image[0] }}&vendor={{ vendor[0] }}">Delete image</a>
+    </h6>
+    {% endfor %}
+
+
+
+    <form method="POST" action="/submit_contacts_edit_company">
+        <input type="hidden" name="id" value="{{ vendor[0] }}">
+
+        Phone number to message : <input type="text" name="contact" /> <br>
+        Detail: <input type="text" name="detail" /> <br>
+        <p>
+            If you have multiple contacts for multiple locations please specify.
+            Eg: Keels-Rathanapitiya
+        </p>
+        SMS:<input type="checkbox" id="submit_insert_location" name="SMS" value="1">
+        <br>
+        Call:<input type="checkbox" id="call" name="call" value="1">
+        <br>
+        Whatsapp:<input type="checkbox" id="whatsapp" name="whatsapp" value="1">
+        <br>
+        Viber:<input type="checkbox" id="viber" name="viber" value="1">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+
+    {% for contact in contacts %}
+    <input type="hidden" name="id">
+    <br>
+    {{ contact[7] }} : {{ contact[2] }} :-
+    {% if contact[5] == 1 %}
+    Can Call ,
+    {% endif %}
+    {% if contact[3] == 1 %}
+    Can Whatsapp ,
+    {% endif %}
+    {% if contact[4] == 1 %}
+    Can Viber ,
+    {% endif %}
+    {% if contact[6] == 1 %}
+    Can SMS ,
+    {% endif %}
+    <br>
+    <input type="hidden" name="id">
+    <a href="delete_phone?id={{ contact[0] }}&id={{ contact[0]}}&vendor={{ vendor[0] }}">Delete contact</a>
+    <br>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>

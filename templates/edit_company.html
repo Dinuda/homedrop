@@ -1,124 +1,182 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>
-        Company signup
-    </title>
-</head>
-
-<body>
-    <form method="POST" action="/submit_edit_company">
-        Company Name : <input type="text" name="name" value="{{ vendor[1] }}" /> <br>
-        Site : <input type="text" name="site" value="{{ vendor[2] }}" /> <br>
-
-        {% if categories %}
-
-        <label for="category">Choose a category:</label>
-
-        <select id="category" name="category">
-            {% for row in categories %}
-            {% if vendor[3] ==  row[0]   %}
-            <option value="{{row[0] }}" selected> {{row[1] }}</option>
-            {% else %}
-            <option value="{{row[0] }}"> {{row[1] }}</option>
-            {% endif %}
-            {% endfor %}
-        </select>
+{% extends "layout.html" %}
+{% block content %}
+<div class="w-100 section-div">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb tab-menu mt-30 ml-5">
+                    <li class="tab-menu-item selected"><a href="#">Details</a></li>
+                    <li class="tab-menu-item"><a href="#">Phone Numbers</a></li>
+                    <li class="tab-menu-item"><a href="#">Images</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <form method="POST" action="/submit_edit_company" class="ml-5 mt-15 mr-5">
+        <div class="cart-title mb-30">
+            <h3>Create your company</h3>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3 col-sm-4">
+                <label>Company name</label>
+            </div>
+            <div class="col-md-9 col-sm-8">
+                <input type="text" class="form-control" name="name" value="{{ vendor[1] }}"
+                    placeholder="Enter your company name" required="">
+            </div>
+        </div>
+        <div class="row  mb-3">
+            <div class="col-md-3 col-sm-8">
+                <label>Website</label>
+            </div>
+            <div class="col-md-9 col-sm-8">
+                <input type="text" class="form-control" name="site" value="{{ vendor[2] }}" placeholder="optional">
+            </div>
+        </div>
+        <div class="row mb-3">
+            {% if categories %}
+            <div class="col-md-3 col-sm-4">
+                <label>Category</label>
+            </div>
+            <div class="col-md-9 col-sm-8 w-100">
+                <select id="category" class="location-element nice-select  col-6 mb-3 form-control w-100 "
+                    name="category">
+                    <span class="current">Select Category</span>
+                    {% for row in categories %}
+                    {% if vendor[3] ==  row[0]   %}
+                    <option value="{{row[0] }}" selected> {{row[1] }}</option>
+                    {% else %}
+                    <option value="{{row[0] }}"> {{row[1] }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3 col-sm-8 w-100"></div>
+            <div class="col-md-9 col-sm-4 w-100">
+                <button type="submit" name="submit" class="btn amado-btn">Submit</button>
+            </div>
+        </div>
         {% endif %}
 
+
+    </form>
+</div>
+{% if vendor %}
+<div class="w-100 section-div">
+    <form method="POST" action="/submit_contacts_edit_company">
         {% if vendor[0]  %}
         <input type="hidden" name="id" value="{{ vendor[0] }}">
         {% endif %}
-
-        <input type="submit" value="Submit">
+        <br>
+        <div class="row mb-3">
+            <div class="col-md-3 col-sm-4 mb-3 ">
+                {% if contacts %}
+                {% for contact in contacts %}
+                <input type="hidden" name="id">
+                <div class="cart-summary">
+                    <h3 class="ml-3">Phone Numbers</h3>
+                    <br>
+                    <ul class="summary-table ml-3">
+                        <li><b><span> {{ contact[7] }} :</span><span> {{ contact[2] }}</span></b><span> </span></li>
+                        <li><span>{% if contact[5] == 1 %} Can Call {% endif %}</span></li>
+                        <li><span>{% if contact[3] == 1 %} Can Whatsapp {% endif %}</span></li>
+                        <li><span>{% if contact[4] == 1 %} Can Viber {% endif %}</span></li>
+                        <li><span>{% if contact[6] == 1 %} Can SMS {% endif %}</span></li>
+                        <input type="hidden" name="id">
+                        <a href="delete_phone?id={{ contact[0] }}&id={{ contact[0]}}&vendor={{ vendor[0] }}">Delete
+                            contact</a>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-md-9 col-sm-8">
+                <h3>Add phone number</h3>
+                <div class="mt-5">
+                    <select id="reigion" class="location-element nice-select  col-6 mb-3 form-control w-100 "
+                    name="reigion">
+                    <span class="current">Select reigion</span>
+                    <option value="+94" selected>+94</option>
+                </select>
+                    <input type="number" class="form-control mb-3" name="contact" min="0" placeholder="Phone Number"
+                        value="">
+                    <input type="text" class="form-control" name="detail"
+                        placeholder="If you have a phone number for a diffrent location please specify.">
+                    <div class="mb-3"></div>
+                    <div class="custom-control d-block col-md-9 col-sm-8">
+                        <input type="checkbox" class="" name="SMS" value="1">
+                        <label class="" for="SMS">Can SMS with this number.</label>
+                    </div>
+                    <div class="custom-control d-block col-md-9 col-sm-8">
+                        <input type="checkbox" class="" name="call" value="1">
+                        <label class="" for="call">Can call with this number.</label>
+                    </div>
+                    <div class="custom-control d-block col-md-9 col-sm-8">
+                        <input type="checkbox" class="" name="whatsapp" value="1">
+                        <label class="" for="whatsapp">Can use whatsapp with this number.</label>
+                    </div>
+                    <div class="custom-control d-block col-md-9 col-sm-8">
+                        <input type="checkbox" class="" name="viber" value="1">
+                        <label class="" for="viber">Can use viber with this number.</label>
+                    </div>
+                    <button type="submit" name="submit" class="btn amado-btn">Add Phone number</button>
+                </div>
+            </div>
+        </div>
     </form>
-    <br>
-    <br>
-    {% if locations %}
-    <label for="location">Add a location:</label>
-    <form method="POST" action="/submit_insert_location">
-        <select id="location" name="location">
-            {% for row in locations %}
-            <option value="{{row[0] }}"> {{row[1] }}</option>
+</div>
+<div class="mb-100 section-div">
+    <div class="row mb-3">
+        <div class="col-md-3 col-sm-4 mb-3 ">
+            <h3 class="ml-3">Your Flyers</h3>
+            {% for image in images %}
+            <h6>
+                <img src="/img/{{ image[2] }}" />
+                <a href="delete_img?id={{ image[0] }}&vendor={{ vendor[0] }}">Delete image</a>
+            </h6>
             {% endfor %}
-        </select>
-        <input type="hidden" name="vendor" value="{{ vendor[0] }}">
-        <input type="submit" value="Add Location">
-    </form>
-    {% endif %}
-    <br>
-    <br>
-    {% if vendor_locations %}
-    {% for vendor_location in vendor_locations %}
-    {{ vendor_location[3] }}
-    <br>
-    <a href="delete_location?id={{ vendor_location[0] }}&vendorid={{ vendor[0] }}">Delete</a>
-    <br>
-    {% endfor %}
-    {% endif %}
-    {% if vendor[0] %}
+        </div>
+        <div class="col-md-9 col-sm-8">
+            <form method="POST" action="/submit_flyer_edit_company" enctype="multipart/form-data">
 
-    <form method="POST" action="/submit_flyer_edit_company" enctype="multipart/form-data">
-        <input type="file" name="upload">
-        <input type="hidden" name="id" value="{{ vendor[0] }}">
+                <h3>Upload Image</h3>
+                <input type="hidden" name="id" value="{{ vendor[0] }}">
+                <input type="file" name="upload">
+                <input class="btn amado-btn" type="submit" value="Submit">
+            </form>
 
-        <input type="submit" value="Submit">
-    </form>
+        </div>
 
-    {% for image in images %}
-    <input type="hidden" name="id">
-    <h6>
-        <img src="/img/{{ image[2] }}" />
-        <a href="delete_img?id={{ image[0] }}&vendor={{ vendor[0] }}">Delete image</a>
-    </h6>
-    {% endfor %}
-
-
-
-    <form method="POST" action="/submit_contacts_edit_company">
-        <input type="hidden" name="id" value="{{ vendor[0] }}">
-
-        Phone number to message : <input type="text" name="contact" /> <br>
-        Detail: <input type="text" name="detail" /> <br>
-        <p>
-            If you have multiple contacts for multiple locations please specify.
-            Eg: Keels-Rathanapitiya
-        </p>
-        SMS:<input type="checkbox" id="submit_insert_location" name="SMS" value="1">
-        <br>
-        Call:<input type="checkbox" id="call" name="call" value="1">
-        <br>
-        Whatsapp:<input type="checkbox" id="whatsapp" name="whatsapp" value="1">
-        <br>
-        Viber:<input type="checkbox" id="viber" name="viber" value="1">
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-
-
-    {% for contact in contacts %}
-    <input type="hidden" name="id">
-    <br>
-    {{ contact[7] }} : {{ contact[2] }} :-
-    {% if contact[5] == 1 %}
-    Can Call ,
-    {% endif %}
-    {% if contact[3] == 1 %}
-    Can Whatsapp ,
-    {% endif %}
-    {% if contact[4] == 1 %}
-    Can Viber ,
-    {% endif %}
-    {% if contact[6] == 1 %}
-    Can SMS ,
-    {% endif %}
-    <br>
-    <input type="hidden" name="id">
-    <a href="delete_phone?id={{ contact[0] }}&id={{ contact[0]}}&vendor={{ vendor[0] }}">Delete contact</a>
-    <br>
-    {% endfor %}
-    {% endif %}
-</body>
-
-</html>
+    </div>
+</div>
+<div class="w-100 section-div">
+    <div class="row mb-3">
+        <div class="col-md-3 col-sm-4 mb-3 ">
+            {% if vendor_locations %}
+            {% for vendor_location in vendor_locations %}
+            <h3 class="ml-3">Delivery Locations</h3>
+            <div class="ml-3">{{ vendor_location[3] }}</div>
+            <a class="ml-3" href="delete_location?id={{ vendor_location[0] }}&vendorid={{ vendor[0] }}">Delete
+                location</a>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-md-9 col-sm-8">
+            {% if locations %}
+            <h3>Add delivery locations</h3>
+            <form method="POST" action="/submit_insert_location">
+                <select id="location" name="location" class="location-element nice-select mb-3 form-control w-100">
+                    {% for row in locations %}
+                    <option value="{{row[0] }}"> {{row[1] }}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" name="vendor" value="{{ vendor[0] }}">
+                <input type="submit" value="Add Location" class="btn amado-btn">
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

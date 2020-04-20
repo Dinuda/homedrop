@@ -62,8 +62,9 @@ def editSubmit(mysql, name, site, category, id):
 
     return redirect('/edit_company?id=' + str(id))
 
-def editFlyer(mysql,id,upload):
-    print('image for:' + str(id))
+def editFlyer(mysql,id, upload):
+    print(id)
+    print(upload)
     file_name = str(secure_filename(upload.filename))
     image_path = 'images/'+ file_name
     upload.save(image_path)
@@ -83,7 +84,8 @@ def editDeleteImg(mysql,id,vendor):
     return redirect('/edit_company?id=' + str(vendor)) 
 
 def editContact(mysql,vendor,contact,detail,whatsapp,viber,call,SMS):
-    sql = "INSERT INTO home_delivery.contacts(vendor , phone , detail, whatsapp, viber, callnum, messege) VALUES ({0},'{1}','{2}',{3},{4},{5},{6})".format(vendor , contact, detail, whatsapp, viber, call, SMS)
+    reigion=('+94' + contact)
+    sql = "INSERT INTO home_delivery.contacts(vendor , phone , detail, whatsapp, viber, callnum, messege) VALUES ({0},'{1}','{2}',{3},{4},{5},{6})".format(vendor , reigion, detail, whatsapp, viber, call, SMS)
     print(sql)
     cur = mysql.connection.cursor()
     cur.execute(sql)
@@ -91,6 +93,7 @@ def editContact(mysql,vendor,contact,detail,whatsapp,viber,call,SMS):
     cur.close()
 
     return redirect('/edit_company?id=' + str(vendor)) 
+    #return render_template('edit')
 
 def editDeleteContact(mysql, id, vendor):
     cur = mysql.connection.cursor()

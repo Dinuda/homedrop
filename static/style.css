@@ -186,3 +186,33 @@
 .main-content-wrapper .header-area {
   padding: 35px 75px;
 }
+
+.nice-select{
+  font-size: 16px;
+  padding-left:14px;
+  font-family: helveticaneuemedium;
+}
+
+.ml-150{
+  margin-left: 200px;
+}
+
+.tab-menu {
+  background-color: transparent;
+}
+
+.tab-menu-item {
+  padding-left: 1rem;
+}
+
+.tab-menu-item .selected {
+  text-decoration: underline;
+}
+
+.section-div {
+  padding-top: 50px;
+  margin-top: 30px;
+  background-color: #ced4da;
+  margin-bottom: 30px;
+  padding-bottom: 50px;
+}
